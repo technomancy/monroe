@@ -403,10 +403,12 @@ at the top of the file."
 
 (eval-when-compile '(require 'arc-mode))
 
+(defvar monroe-translate-path-function 'identity)
+
 (defun monroe-jump-find-file (file)
   "Internal function to find a file on the disk or inside a jar."
   (if (not (string-match "^jar:file:\\(.+\\)!\\(.+\\)" file))
-      (find-file (substring file 5))
+      (find-file (funcall monroe-translate-path-function (substring file 5)))
     (let* ((jar (match-string 1 file))
            (clj (match-string 2 file))
            (already-open (get-buffer (file-name-nondirectory jar))))
