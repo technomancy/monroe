@@ -515,6 +515,9 @@ inside a container.")
              (goto-char (point-min))
              (forward-line (1- line)))))))))
 
+(defun monroe-completion-candidate (completions)
+  (monroe-dbind-response completions (candidate) candidate))
+
 (defun monroe-completion-at-point ()
   "Function to be used for the hook 'completion-at-point-functions'."
   (interactive)
@@ -529,7 +532,8 @@ inside a container.")
                                                    "prefix" sym))))
     (monroe-dbind-response response (completions)
       (when completions
-        (list start end (mapcar 'cdadr completions) nil)))))
+        (let ((candidates (mapcar 'monroe-completion-candidate completions)))
+          (list start end candidates nil))))))
 
 (defun monroe-get-stacktrace ()
   "When error happens, print the stack trace"
