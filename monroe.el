@@ -525,6 +525,7 @@ inside a container.")
          (sym (thing-at-point 'symbol))
          (response (monroe-send-sync-request (list "op" "completions"
                                                    "ns" ns
+                                                   "session" (monroe-current-session)
                                                    "prefix" sym))))
     (monroe-dbind-response response (completions)
       (when completions
