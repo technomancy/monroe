@@ -672,7 +672,7 @@ The following keys are available in `monroe-mode':
   (setq comint-input-sender 'monroe-input-sender)
   (setq mode-line-process '(":%s"))
   ;(set (make-local-variable 'font-lock-defaults) '(clojure-font-lock-keywords t))
-  (add-hook 'completion-at-point-functions #'monroe-completion-at-point 'local)
+  (add-hook 'completion-at-point-functions #'monroe-completion-at-point nil 'local)
   ;; a hack to keep comint happy
   (unless (comint-check-proc (current-buffer))
     (let ((fake-proc (start-process "monroe" (current-buffer) nil)))
