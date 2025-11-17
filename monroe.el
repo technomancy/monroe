@@ -573,10 +573,10 @@ remote paths, use absolute path."
     (let ((n (buffer-file-name)))
       (read-file-name "Load file: " nil nil nil
                       (and n (file-name-nondirectory n))))))
-  (let ((full-path (tramp-compat-file-local-name (convert-standard-filename (expand-file-name path)))))
-    (monroe-input-sender
-     (get-buffer-process (monroe-repl-buffer))
-     (format "(clojure.core/load-file \"%s\")" full-path))))
+  (let ((full-path (convert-standard-filename (expand-file-name path))))
+    (monroe-send-request (list "op" "load-file"
+                               "file" full-path)
+                       (monroe-make-response-handler))))
 
 (defun monroe-jump (var)
   "Jump to definition of var at point."
