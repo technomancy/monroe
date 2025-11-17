@@ -527,7 +527,7 @@ inside a container.")
          (ns (monroe-get-clojure-ns))
          (sym (thing-at-point 'symbol))
          (response (monroe-send-sync-request (list "op" "completions"
-                                                   "ns" ns
+                                                   "ns" (or ns "user")
                                                    "session" (monroe-current-session)
                                                    "prefix" sym))))
     (monroe-dbind-response response (completions)
